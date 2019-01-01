@@ -1,0 +1,51 @@
+{
+    "name": "mtownsend/remove-bg",
+    "description": "A PHP package to interface with the remove.bg api.",
+    "keywords": [
+        "remove",
+        "bg",
+        "background",
+        "image",
+        "php",
+        "transparent",
+        "image",
+        "photo",
+        "api"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mark Townsend",
+            "email": "mtownsend5512@gmail.com",
+            "role": "Developer"
+        }
+    ],
+	"autoload": {
+        "psr-4": {
+            "Mtownsend\\RemoveBg\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "require": {
+        "php": "~7.0",
+        "guzzlehttp/guzzle": "^6.0"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^6.4"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mtownsend\\RemoveBg\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+            "Mtownsend\\RemoveBg\\Providers\\RemoveBgServiceProvider"
+        ]
+      }
+    },
+    "minimum-stability": "stable"
+}
