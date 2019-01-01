@@ -77,7 +77,6 @@ class RemoveBg
      *
      * @param string $apiKey Your remove.bg api key
      * @param array  $headers Request http headers
-     * @param string $returnFormat The image format remove.bg should return images as. 'raw' or 'base64'
      */
     public function __construct($apiKey = '', $headers = [])
     {
