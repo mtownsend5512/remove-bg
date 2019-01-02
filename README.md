@@ -50,7 +50,7 @@ Once your ``removebg.php`` has been published your to your config folder, add th
 ```php
 use Mtownsend\RemoveBg\RemoveBg;
 
-$url = 'https://yoursite.com/images/photo.jpg';
+$absoluteUrl = 'https://yoursite.com/images/photo.jpg';
 $pathToFile = 'images/avatar.jpg';
 $base64EncodedFile = base64_encode(file_get_contents($pathToFile));
 
