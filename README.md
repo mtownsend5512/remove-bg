@@ -1,8 +1,7 @@
 Programmatically remove backgrounds from your images using the remove.bg api.
 
-**Remove.bg is in private beta. This package is subject to change. Production use is not recommended until remove.bg's api leaves beta.**
-
-[See the remove.bg docs for more details](https://developer.remove.bg/docs).
+* [Register an account and obtain your api key](https://www.remove.bg/users/sign_up)
+* [Remove.bg Developer Documentation](https://developer.remove.bg/docs)
 
 ## Installation
 
