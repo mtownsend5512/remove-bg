@@ -115,13 +115,12 @@ class RemoveBg
     {
         switch ($this->returnFormat) {
             case 'raw':
-                $returnFormatUrl = '';
                 break;
             case 'base64':
-                $returnFormatUrl = '.json';
+                $this->header('Accept', 'application/json');
                 break;
         }
-        return $this->endpoint . $returnFormatUrl;
+        return $this->endpoint;
     }
 
     /**
