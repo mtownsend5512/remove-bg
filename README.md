@@ -1,5 +1,10 @@
 Programmatically remove backgrounds from your images using the remove.bg api.
 
+
+<p align="center">
+<img src="https://i.imgur.com/Rrmusuo.png">
+</p>
+
 * [Register an account and obtain your api key](https://www.remove.bg/users/sign_up)
 * [Remove.bg Developer Documentation](https://developer.remove.bg/docs)
 
