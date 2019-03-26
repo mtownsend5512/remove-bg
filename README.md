@@ -6,7 +6,7 @@ Programmatically remove backgrounds from your images using the remove.bg api.
 </p>
 
 * [Register an account and obtain your api key](https://www.remove.bg/users/sign_up)
-* [Remove.bg Developer Documentation](https://developer.remove.bg/docs)
+* [Remove.bg Developer Documentation](https://www.remove.bg/api)
 
 ## Installation
 
@@ -84,6 +84,24 @@ file_put_contents('path/to/your/file5.png', base64_decode($base64Url));
 // Please note: remove.bg returns all images in .png format, so you should be saving all files received from the api as .png.
 ```
 
+### Advanced usage
+
+Remove.bg offers several parameters for each api call. For an up to date list, you should always check the [remove.bg api documentation](https://www.remove.bg/api).
+
+Here is an example of an api call configured with specific parameters.
+
+````php
+$removebg = new RemoveBg($apiKey);
+
+// Directly saving files
+$removebg->url($absoluteUrl)
+->headers([
+    'size' => '4k',
+    'type' => 'product',
+    'channels' => 'rgba',
+])
+->save('path/to/your/file.png');
+````
 ### Using the global helper (Laravel)
 
 If you are using Laravel, this package provides a convenient helper function which is globally accessible.
