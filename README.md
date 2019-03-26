@@ -96,9 +96,9 @@ $removebg = new RemoveBg($apiKey);
 // Directly saving files
 $removebg->url($absoluteUrl)
 ->headers([
-    'size' => '4k',
-    'type' => 'product',
-    'channels' => 'rgba',
+    'size' => '4k', // regular, medium, hd, 4k, auto
+    'type' => 'product', // auto, person, product
+    'channels' => 'rgba', // rgba, alpha
 ])
 ->save('path/to/your/file.png');
 ````
