@@ -107,7 +107,7 @@ $removebg->url($absoluteUrl)
 If you are using Laravel, this package provides a convenient helper function which is globally accessible.
 
 ```php
-removebg()->url($absoluteUrl)->save('path/to/your/file.png');
+removebg()->url($absoluteUrl)->save(public_path('path/to/your/file.png'));
 ```
 
 ### Using the facade (Laravel)
@@ -121,7 +121,7 @@ If you are using Laravel, this package provides a facade. To register the facade
 ```php
 use RemoveBg;
 
-RemoveBg::file($pathToFile)->save('path/to/your/file.png');
+RemoveBg::file($pathToFile)->save(public_path('path/to/your/file.png'));
 ```
 
 ## Credits
