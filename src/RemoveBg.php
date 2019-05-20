@@ -84,6 +84,7 @@ class RemoveBg
         $this->returnFormat = 'raw';
         $this->endpoint = 'https://api.remove.bg/v1.0/removebg';
         $this->headers = $headers;
+        $this->header('User-Agent', 'Mtownsend/RemoveBg (github.com/mtownsend5512/remove-bg)');
         $this->requestOptions = [
             'http_errors' => false,
             'decode_content' => false
