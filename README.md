@@ -86,9 +86,25 @@ file_put_contents('path/to/your/file5.png', base64_decode($base64Url));
 
 ### Advanced usage
 
-Remove.bg offers several parameters for each api call. For an up to date list, you should always check the [remove.bg api documentation](https://www.remove.bg/api).
+Remove.bg offers several request body parameters for each api call. For an up to date list, you should always check the [remove.bg api documentation](https://www.remove.bg/api).
 
-Here is an example of an api call configured with specific parameters.
+Here is an example of an api call configured with specific request body parameters.
+
+````php
+$removebg = new RemoveBg($apiKey);
+
+// Directly saving files
+$removebg->url($absoluteUrl)
+->body([
+    'size' => '4k', // regular, medium, hd, 4k, auto
+    'bg_color' => '#CBD5E0',
+    'add_shadow' => true, // primarily used for automotive photos as of the time this documentation was written
+    'channels' => 'rgba', // rgba, alpha
+])
+->save('path/to/your/file.png');
+````
+
+You may also directly specify request header parameters. As of right now this does not appear to offer much functionality in terms of how the Remove.bg api will consume these headers, but we thought it was important to expose this functionality. Consider the following example:
 
 ````php
 $removebg = new RemoveBg($apiKey);
@@ -96,12 +112,12 @@ $removebg = new RemoveBg($apiKey);
 // Directly saving files
 $removebg->url($absoluteUrl)
 ->headers([
-    'size' => '4k', // regular, medium, hd, 4k, auto
-    'type' => 'product', // auto, person, product
-    'channels' => 'rgba', // rgba, alpha
+    'X-Foo-Header' => 'Some Bar Value',
+    'X-Foo-Header-2' => 'Some Bar Value 2',
 ])
 ->save('path/to/your/file.png');
 ````
+
 ### Using the global helper (Laravel)
 
 If you are using Laravel, this package provides a convenient helper function which is globally accessible.

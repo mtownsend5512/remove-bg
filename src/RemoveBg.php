@@ -19,6 +19,12 @@ class RemoveBg
     public $apiKey;
 
     /**
+     * Additional request parameters to be included in the body of the api call
+     * @var array
+     */
+    public $body = [];
+
+    /**
      * The remove.bg url endpoint used for the request
      *
      * @var string
@@ -107,6 +113,19 @@ class RemoveBg
     }
 
     /**
+     * Accepts an associative array of data which will be
+     * added to the request body of the api call
+     *
+     * @param  array  $body
+     * @return Mtownsend\RemoveBg\RemoveBg
+     */
+    public function body(array $body)
+    {
+        $this->body = array_merge($this->body, $body);
+        return $this;
+    }
+
+    /**
      * Return the fully qualified remove.bg url
      * to which an api request will be sent
      *
@@ -153,6 +172,29 @@ class RemoveBg
     }
 
     /**
+     * Formats the additional request body into the
+     * acceptable format for the remove.bg api
+     *
+     * @return array
+     */
+    protected function formatBody()
+    {
+        switch ($this->imageFormat) {
+            case 'image_file':
+                $index = 0;
+                foreach ($this->body as $key => $value) {
+                    $data[$index]['name'] = $key;
+                    $data[$index]['contents'] = $value;
+                    $index++;
+                }
+                break;
+            default:
+                $data = $this->body;
+        }
+        return $data;
+    }
+
+    /**
      * Formats the request into the acceptable
      * format for the remove.bg api
      *
@@ -162,17 +204,19 @@ class RemoveBg
     {
         switch ($this->imageFormat) {
             case 'image_url':
-                return ['form_params' => [$this->imageFormat => $this->payload]];
+                return ['form_params' => array_merge([$this->imageFormat => $this->payload], $this->formatBody())];
                 break;
             case 'image_file':
-                return ['multipart' => [[
-                    'name' => 'image_file',
-                    'contents' => file_get_contents($this->payload),
-                    'filename' => $this->formatFileName($this->fileName)
-                ]]];
+                return ['multipart' => array_merge([
+                    [
+                        'name' => 'image_file',
+                        'contents' => file_get_contents($this->payload),
+                        'filename' => $this->formatFileName($this->fileName)
+                    ]
+                ], $this->formatBody())];
                 break;
             case 'image_file_b64':
-                return ['form_params' => [$this->imageFormat => $this->payload]];
+                return ['form_params' => array_merge([$this->imageFormat => $this->payload], $this->formatBody())];
                 break;
         }
     }
