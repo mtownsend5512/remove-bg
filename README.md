@@ -18,7 +18,7 @@ composer require mtownsend/remove-bg
 
 *This package is designed to work with any PHP 7.0+ application but has special support for Laravel.*
 
-### Registering the service provider (Laravel)
+### Registering the service provider (Laravel users)
 
 For Laravel 5.4 and lower, add the following line to your ``config/app.php``:
 
@@ -39,7 +39,7 @@ To register the service provider, add the following line to ``app/bootstrap/app.
 $app->register(Mtownsend\RemoveBg\Providers\RemoveBgServiceProvider::class);
 ```
 
-### Publishing the config file (Laravel)
+### Publishing the config file (Laravel users)
 
 ````
 php artisan vendor:publish --provider="Mtownsend\RemoveBg\Providers\RemoveBgServiceProvider"
@@ -122,7 +122,7 @@ $removebg->url($absoluteUrl)
 
 The Remove.bg api offers an endpoint to check your account's credit balance and free api call usage. If your application needs to check your available credits before processing images this package makes it an absolute breeze!
 
-The following code example is how you can check programmatically check your account information. Note, the ``account`` method has one optional argument: `$getResponseAsObject = true`. By default your response will be returned as an object. You can return the response as an associative array by passing `false` to the `account(false)` method.
+The following code example is how you can programmatically check your account information. Note, the ``account`` method has one optional argument: `$getResponseAsObject = true`. By default your response will be returned as an object. You can return the response as an associative array by passing `false` to the `account(false)` method.
 
 ````php
 $removebg = new RemoveBg($apiKey);
@@ -161,7 +161,7 @@ if ($account->data->attributes->credits->total >= 1) {
 }
 ````
 
-### Using the global helper (Laravel)
+### Using the global helper (Laravel users)
 
 If you are using Laravel, this package provides a convenient helper function which is globally accessible.
 
@@ -169,7 +169,7 @@ If you are using Laravel, this package provides a convenient helper function whi
 removebg()->url($absoluteUrl)->save(public_path('path/to/your/file.png'));
 ```
 
-### Using the facade (Laravel)
+### Using the facade (Laravel users)
 
 If you are using Laravel, this package provides a facade. To register the facade add the following line to your ``config/app.php`` under the ``aliases`` key.
 
