@@ -99,6 +99,27 @@ class RemoveBg
     }
 
     /**
+     * Fetch the account's credit balance and free API calls
+     *
+     * @param bool $getResponseAsObject Whether or not the response should be returned as an object or array
+     * @return mixed remove.bg account response
+     */
+    public function account($getResponseAsObject = true)
+    {
+        $request = new Guzzle();
+        $this->response = $request->request('GET', str_replace('/removebg', '/account', $this->endpoint), array_merge(
+            $this->requestOptions,
+            ['headers' => $this->headers]
+        ));
+
+        if ($this->hasErrors()) {
+            return $this->throwApiException();
+        }
+
+        return json_decode((string) $this->response->getBody(), $getResponseAsObject ? false : true);
+    }
+
+    /**
      * Accepts a base64 encoded image string
      * and utilizes remove.bg's image_file_b64 feature
      *

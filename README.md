@@ -118,6 +118,49 @@ $removebg->url($absoluteUrl)
 ->save('path/to/your/file.png');
 ````
 
+### Account details
+
+The Remove.bg api offers an endpoint to check your account's credit balance and free api call usage. If your application needs to check your available credits before processing images this package makes it an absolute breeze!
+
+The following code example is how you can check programmatically check your account information. Note, the ``account`` method has one optional argument: `$getResponseAsObject = true`. By default your response will be returned as an object. You can return the response as an associative array by passing `false` to the `account(false)` method.
+
+````php
+$removebg = new RemoveBg($apiKey);
+
+$account = $removebg->account();
+
+// $account will be something like this:
+{
+  "data": {
+    "attributes": {
+      "credits": {
+        "total": 200,
+        "subscription": 150,
+        "payg": 50
+      },
+      "api": {
+        "free_calls": 50,
+        "sizes": "all"
+      }
+    }
+  }
+}
+````
+
+To access your total credits you could do so like this: `$account->data->attributes->credits->total`.
+
+A practical example could look something like the following:
+
+````php
+$removebg = new RemoveBg($apiKey);
+
+$account = $removebg->account();
+
+if ($account->data->attributes->credits->total >= 1) {
+	$removebg->url($absoluteUrl)->save('path/to/your/file.png');
+}
+````
+
 ### Using the global helper (Laravel)
 
 If you are using Laravel, this package provides a convenient helper function which is globally accessible.
