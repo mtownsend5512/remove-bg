@@ -203,6 +203,7 @@ class RemoveBg
         switch ($this->imageFormat) {
             case 'image_file':
                 $index = 0;
+                $data = [];
                 foreach ($this->body as $key => $value) {
                     $data[$index]['name'] = $key;
                     $data[$index]['contents'] = $value;
