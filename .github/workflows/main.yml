@@ -1,0 +1,127 @@
+---
+version: 2.1
+
+orbs:
+  node: circleci/node@5.2
+  win: circleci/windows@5.0
+
+executors:
+  linux:
+    docker:
+      - image: cimg/base:current
+    resource_class: medium
+  macos:
+    macos:
+      xcode: 15.4.0
+    resource_class: macos.m1.medium.gen1
+
+
+filters: &filters
+  tags:
+    only: /^\d+\.\d+\.\d+$/
+
+# Matrices work with jobs that take parameters
+jobs:
+
+  build:
+    parameters:
+      os:
+        type: string
+      run_integration_tests:
+        type: boolean
+    executor: << parameters.os >>
+    steps:
+      # Install Rosetta if on Apple Silicon
+      - when:
+          condition:
+            equal: ["macos", << parameters.os >>]
+          steps:
+            - run:
+                name: Install Rosetta
+                command: softwareupdate --install-rosetta --agree-to-license
+            - run:
+                name: Install dependencies
+                command: |
+                  arch -arm64 brew install pkg-config cairo pango jpeg \
+                    giflib librsvg
+            - run:
+                name: Install Setuptools
+                command: |
+                  pip install --upgrade pip setuptools
+                  pyenv rehash
+      - checkout
+      - node/install:
+          node-version: 16.20.2
+      - run:
+          name: Verify Versions
+          command: |
+            node --version
+            npm --version
+      - run:
+          name: Install
+          command: |
+            npm i
+            npm i --prefix=$HOME/.local -g pkg
+            ls -la $HOME/.local
+            ls -la $HOME/.local/bin
+            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+      - run:
+          name: Build
+          command: |
+            echo "Path: $PATH"
+            echo "pkg location: $(which pkg)"
+            npm run build
+            tar -czvf dist/removebg_cli_VERSION_<< parameters.os >>.tar.gz dist/removebg
+      - store_artifacts:
+          path: dist
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist/*
+            - test/*
+
+  build-windows:
+    executor: win/default
+    steps:
+      - checkout
+      - run:
+          name: Install Node
+          command: |
+            nvm install 16.20.2
+            nvm use 16.20.2
+      - run:
+          name: Verify Versions
+          command: |
+            node --version
+            npm --version
+      - run:
+          name: Install
+          command: |
+            npm install
+            dir
+            npm i -g pkg
+      - run:
+          name: Build
+          command: |
+            npm run build
+            Compress-Archive -LiteralPath dist\removebg.exe -DestinationPath dist\removebg_cli_VERSION_windows.zip
+      - store_artifacts:
+          path: dist
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist/*
+            - test/*
+
+workflows:
+  ci:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              os: [linux, macos]
+          name: build-on-<< matrix.os >>
+          run_integration_tests: true
+          filters: *filters
+      - build-windows:
+          filters: *filters
