@@ -67,7 +67,7 @@ class RemoveBg
     /**
      * The api response
      *
-     * @var GuzzleHttp\Psr7\Response
+     * @var \GuzzleHttp\Psr7\Response
      */
     public $response;
 
@@ -124,7 +124,7 @@ class RemoveBg
      * and utilizes remove.bg's image_file_b64 feature
      *
      * @param  string $base64 Base64 encoded image
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function base64(string $base64)
     {
@@ -138,7 +138,7 @@ class RemoveBg
      * added to the request body of the api call
      *
      * @param  array  $body
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function body(array $body)
     {
@@ -170,7 +170,7 @@ class RemoveBg
      *
      * @param  string $file Path to image
      * @param  string $name The file name
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function file(string $file, $name = '')
     {
@@ -320,7 +320,7 @@ class RemoveBg
      *
      * @param  string $key The header key
      * @param  string $value The header value
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function header(string $key, string $value)
     {
@@ -332,7 +332,7 @@ class RemoveBg
      * Set the api request's headers
      *
      * @param  array  $headers An associative array of headers
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function headers(array $headers = [])
     {
@@ -344,7 +344,7 @@ class RemoveBg
      * Set request options for the api request
      *
      * @param  array  $options
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function requestOptions(array $options)
     {
@@ -423,7 +423,7 @@ class RemoveBg
      * and utilizes remove.bg's image_url feature
      *
      * @param  string $url Fully qualfied image url
-     * @return Mtownsend\RemoveBg\RemoveBg
+     * @return RemoveBg
      */
     public function url(string $url)
     {
