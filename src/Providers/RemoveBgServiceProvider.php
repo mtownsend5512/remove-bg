@@ -33,7 +33,10 @@ class RemoveBgServiceProvider extends ServiceProvider
             if (!isset($data['headers'])) {
                 $data['headers'] = [];
             }
-            return new RemoveBg($data['api_key'], $data['headers']);
+            if (!isset($data['endpoint'])) {
+                $data['endpoint'] = config('removebg.endpoint');
+            }
+            return new RemoveBg($data['api_key'], $data['headers'], $data['endpoint']);
         });
     }
 }
