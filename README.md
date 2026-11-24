@@ -47,6 +47,16 @@ php artisan vendor:publish --provider="Mtownsend\RemoveBg\Providers\RemoveBgServ
 
 Once your ``removebg.php`` has been published your to your config folder, add the api key you obtained from [Remove.bg](https://www.remove.bg/). If you are using Laravel and put your remove.bg api key in the config file, Laravel will automatically set your api key every time you instantiate the class through the helper or facade.
 
+### Using another endpoint
+
+remove.bg ends its self-serve API on 1 December 2026 ([FAQ](https://www.remove.bg/faq)). The package can call any API that accepts the same requests and returns the image as binary data. Use that API's key.
+
+```php
+$removebg = new RemoveBg($apiKey, [], 'https://api.example.com/v1.0/removebg');
+```
+
+Laravel users can set `endpoint` in `config/removebg.php`. Without it, the package keeps calling remove.bg.
+
 ## Quick start
 
 ### Using the class

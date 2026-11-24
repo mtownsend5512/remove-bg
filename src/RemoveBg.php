@@ -83,12 +83,13 @@ class RemoveBg
      *
      * @param string $apiKey Your remove.bg api key
      * @param array  $headers Request http headers
+     * @param string|null $endpoint Url of the removebg call; empty for remove.bg itself
      */
-    public function __construct($apiKey = '', $headers = [])
+    public function __construct($apiKey = '', $headers = [], $endpoint = null)
     {
         $this->apiKey = $apiKey;
         $this->returnFormat = 'raw';
-        $this->endpoint = 'https://api.remove.bg/v1.0/removebg';
+        $this->endpoint = $endpoint ?: 'https://api.remove.bg/v1.0/removebg';
         $this->headers = $headers;
         $this->header('User-Agent', 'Mtownsend/RemoveBg (github.com/mtownsend5512/remove-bg)');
         $this->requestOptions = [
